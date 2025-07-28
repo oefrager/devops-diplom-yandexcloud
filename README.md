@@ -31,9 +31,9 @@
   
 <img width="892" height="138" alt="изображение" src="https://github.com/user-attachments/assets/ec97bba8-f81c-4269-8486-e5d7efedd68e" />
   
-  2. Создаем [bucket](bucket/bucket,tf)
+  2. Создаем [bucket](bucket/bucket.tf)
 
-  3. Мигрируем Terrafrom.tfstate в созданный бакет. Для этого получаем ключи при помощи [output](bucket/output,tf). Так как ``secret_key`` имеет статус sensitive, то извлекаем командой:
+  3. Мигрируем Terrafrom.tfstate в созданный бакет. Для этого получаем ключи при помощи [output](bucket/output.tf). Так как ``secret_key`` имеет статус sensitive, то извлекаем командой:
      ```
      terraform output -raw terraform_backend_secret_key
      ```
