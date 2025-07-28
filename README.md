@@ -59,15 +59,20 @@
 <summary> Установка Kubernetes кластера при помощи Terraform: </summary>
 <br>
  
-   На этом этапе необходимо создать [Kubernetes](https://kubernetes.io/ru/docs/concepts/overview/what-is-kubernetes/) кластер на базе предварительно созданной инфраструктуры.   Требуется обеспечить доступ к ресурсам из Интернета.
-  
-  Это можно сделать двумя способами:
-  
-  1. Рекомендуемый вариант: самостоятельная установка Kubernetes кластера.  
-     а. При помощи Terraform подготовить как минимум 3 виртуальных машины Compute Cloud для создания Kubernetes-кластера. Тип виртуальной машины следует выбрать самостоятельно с учётом требовании к производительности и стоимости. Если в дальнейшем поймете, что необходимо сменить тип инстанса, используйте Terraform для внесения изменений.  
-     б. Подготовить [ansible](https://www.ansible.com/) конфигурации, можно воспользоваться, например [Kubespray](https://kubernetes.io/docs/setup/production-environment/tools/kubespray/)  
+ Разворачиваем самостоятельно Kubernetes кластер с помощью kubespray. Для этого:
+2. При помощи Terraform настраиваем 3 виртуальных машины: один мастер в зоне ru-central1-a и две вокер-ноды в зонах ru-central1-a и ru-central1-bдля создания Kubernetes-кластера.
+3. Подготовим [ansible](https://www.ansible.com/) конфигурации, для установки Kubernetes
+
+4. 
      в. Задеплоить Kubernetes на подготовленные ранее инстансы, в случае нехватки каких-либо ресурсов вы всегда можете создать их при помощи Terraform.
-  2. Альтернативный вариант: воспользуйтесь сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
+  
+  
+  
+
+
+  
+  
+  5. Альтернативный вариант: воспользуйтесь сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
     а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать **региональный** мастер kubernetes с размещением нод в разных 3 подсетях      
     б. С помощью terraform resource для [kubernetes node group](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_node_group)
     
