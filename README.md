@@ -48,6 +48,8 @@
   
   5. Проверяем работоспособность кода командами `terraform destroy` и `terraform apply` без дополнительных ручных действий.
 
+<img width="786" height="208" alt="изображение" src="https://github.com/user-attachments/assets/d5c13458-eafe-4464-8f4f-787b9cac06f7" />
+
 </details>
 
 ---
