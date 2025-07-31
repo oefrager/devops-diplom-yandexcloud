@@ -60,27 +60,15 @@
 <br>
  
  Разворачиваем самостоятельно Kubernetes кластер с помощью kubespray. Для этого:
-2. При помощи Terraform настраиваем 3 виртуальных машины: один мастер в зоне ru-central1-a и две вокер-ноды в зонах ru-central1-a и ru-central1-bдля создания Kubernetes-кластера.
-3. Подготовим [ansible](https://www.ansible.com/) конфигурации, для установки Kubernetes
+1. При помощи Terraform настраиваем [виртуальных машины](hosts-vm.tf) в разных зонах доступности ru-central1-a, ru-central1-b, ru-central1-d.
 
-4. 
-     в. Задеплоить Kubernetes на подготовленные ранее инстансы, в случае нехватки каких-либо ресурсов вы всегда можете создать их при помощи Terraform.
-  
-  
-  
+<img width="744" height="146" alt="изображение" src="https://github.com/user-attachments/assets/b4898184-ed28-48cf-9ab8-4a755af92148" />
+   
+2. Подготовим [inventory](inventory.tftpl) файл со списком хостов для insible конфигурации. В качестве мастера используем host1. Выполняем на нем установку kubespray с помощью [кода](cluster-k8s,tf) terraform.
 
+<img width="1190" height="91" alt="изображение" src="https://github.com/user-attachments/assets/2d725857-7810-493f-9958-025fed4364e5" />
 
-  
-  
-  5. Альтернативный вариант: воспользуйтесь сервисом [Yandex Managed Service for Kubernetes](https://cloud.yandex.ru/services/managed-kubernetes)  
-    а. С помощью terraform resource для [kubernetes](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_cluster) создать **региональный** мастер kubernetes с размещением нод в разных 3 подсетях      
-    б. С помощью terraform resource для [kubernetes node group](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/kubernetes_node_group)
-    
-  Ожидаемый результат:
-  
-  1. Работоспособный Kubernetes кластер.
-  2. В файле `~/.kube/config` находятся данные для доступа к кластеру.
-  3. Команда `kubectl get pods --all-namespaces` отрабатывает без ошибок.
+<img width="1190" height="331" alt="изображение" src="https://github.com/user-attachments/assets/1ff6bcb4-320b-4298-956d-f19fb3b03b41" />
 
 </details>
 
