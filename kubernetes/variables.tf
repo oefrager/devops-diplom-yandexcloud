@@ -23,47 +23,64 @@ variable "default_zone" {
 
 variable "public_subnets" {
   description = "VPC public subnet config"
-  type = map(object({
+  type = list(object({
     name        = string
     zone        = string
     cidr_blocks = list(string)
   }))
-  default = {
-    "public-a" = {
+  default = [
+   {
       name        = "public-a"
       zone        = "ru-central1-a"
       cidr_blocks = ["192.168.10.0/24"]
     },
-    "public-b" = {
+    {
       name        = "public-b"
       zone        = "ru-central1-b"
       cidr_blocks = ["192.168.11.0/24"]
     },
-    "public-d" = {
+    {
       name        = "public-d"
       zone        = "ru-central1-d"
       cidr_blocks = ["192.168.12.0/24"]
     }
+  ]
+}
+
+### HOST vars
+variable "vms_resources" {
+  description = "Configuration K8s node"
+  type = map(object({
+    platform_id   = string
+    cores         = number
+    core_fraction = number
+    memory        = number
+    disk_type     = string
+    disk_size     = number
+    preemptible   = bool
+    runtime_type  = string
+  }))
+  default = {
+    node-k8s = {
+      platform_id   = "standard-v3"
+      cores         = 2
+      core_fraction = 20
+      memory        = 4
+      disk_type     = "network-hdd"
+      disk_size     = 20
+      preemptible   = true
+      runtime_type  = "containerd"
+    }
   }
 }
 
-#variable "private_subnets" {
-#  description = "VPC private subnet config"
-#  type = map(object({
-#    name        = string
-#    zone        = string
-#    cidr_blocks = list(string)
-#  }))
-#  default = {
-#    "private-a" = {
-#      name        = "private-a"
-#      zone        = "ru-central1-a"
-#      cidr_blocks = ["192.168.20.0/24"]
-#    },
-#    "private-b" = {
-#      name        = "private-b"
-#      zone        = "ru-central1-b"
-#      cidr_blocks = ["192.168.21.0/24"]
-#    }
-#  }
-#}
+variable  "vm_image" {
+  type        = string
+  default     = "ubuntu-2404-lts-oslogin"
+  description = "Ubuntu release 24.04-lts"
+}
+
+variable "subnet_count" {
+  type        = number
+  default     = 3
+}

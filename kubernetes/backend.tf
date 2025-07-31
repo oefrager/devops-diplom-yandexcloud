@@ -5,7 +5,7 @@ terraform {
     }
     bucket = "state-bucket-goi"
     region = "ru-central1"
-    key    = "state-bucket-goi/terraform.tfstate"
+    key    = "terraform.tfstate"
 
     skip_region_validation      = true
     skip_credentials_validation = true
