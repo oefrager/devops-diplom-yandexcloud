@@ -64,7 +64,7 @@
 
 <img width="744" height="146" alt="изображение" src="https://github.com/user-attachments/assets/b4898184-ed28-48cf-9ab8-4a755af92148" />
    
-2. Подготовим [inventory](infrastructure/inventory.tftpl) файл со списком хостов для insible конфигурации. В качестве мастера используем host1. Выполняем на нем установку kubespray с помощью [кода](cluster-k8s,tf) terraform.
+2. Подготовим [inventory](infrastructure/inventory.tftpl) файл со списком хостов для insible конфигурации. В качестве мастера используем host1. Выполняем на нем установку kubespray с помощью [кода](cluster-k8s.tf) terraform.
 
 <img width="1190" height="91" alt="изображение" src="https://github.com/user-attachments/assets/2d725857-7810-493f-9958-025fed4364e5" />
 
