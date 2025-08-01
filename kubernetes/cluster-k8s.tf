@@ -1,10 +1,16 @@
-# Cоздаем файл inventory для ansible
 resource "local_file" "ansible_inventory_k8s" {
   content = templatefile("./infrastructure/inventory.tftpl", {
     master-node_internal_ip = yandex_compute_instance.k8s-node[0].network_interface[0].ip_address
     node_internal_ip = slice(yandex_compute_instance.k8s-node[*].network_interface[0].ip_address, 1, 3),
   })
   filename = "./infrastructure/inventory.yml"
+}
+
+resource "local_file" "ansible_inventory_master" {
+  content = templatefile("./infrastructure/hosts.tftpl", {
+    master_internal_ip = yandex_compute_instance.k8s-node[0].network_interface[0].ip_address
+  })
+  filename = "./infrastructure/inventory/hosts.yml"
 }
 
 resource "null_resource" "deploy_k8s" {
@@ -38,7 +44,7 @@ resource "null_resource" "deploy_k8s" {
 
   provisioner "remote-exec" {
     inline = [
-      # Установка необходимых пакетов
+      # Установка Python
       "sudo apt-get update",
       "sudo apt-get install -y python3-pip python3-venv python3-full git mc",
 

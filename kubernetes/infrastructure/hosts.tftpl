@@ -1,0 +1,16 @@
+---
+
+all:
+  hosts:
+    master-01:
+      ansible_host: ${master_internal_ip}
+  children:
+    k8s:
+      hosts:
+        master-01:
+  vars:
+    ansible_connection_type: paramiko
+#    ansible_user: ubuntu
+    ansible_connection: ssh
+    ansible_ssh_user: ubuntu
+    ansible_private_key_file: ~/.ssh/id_ed25519

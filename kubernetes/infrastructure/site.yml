@@ -1,0 +1,53 @@
+---
+
+- name: Install k8s
+  hosts: master-01
+  become: true
+  #handlers:                             # Объявление списка handlers для перезапуска сервиса Nginx
+  #  - name: Start nginx service
+  #    ansible.builtin.service:
+  #      name: nginx
+  #      enabled: "yes"
+  #      state: restarted
+  tasks:
+    - name: Install Git                 # Устанавливаем Git
+      ansible.builtin.apt:
+        name: "git"
+    - name: Install MC
+      ansible.builtin.apt:
+        name: "mc"
+    - name: Install Python3-full
+      ansible.builtin.apt:
+        name: "python3-full"
+    - name: Install Pip3
+      ansible.builtin.apt:
+        name: "python3-pip"
+
+    - name: Clone git repository kuberspray
+      ansible.builtin.git:
+        repo: "https://github.com/kubernetes-sigs/kubespray"
+        dest: /home/ubuntu/kuberspray
+
+    - name: Create virtual environment
+      ansible.builtin.shell: "python3 -m venv /home/ubuntu/venv/"
+    - name: Activate virtual environment
+      ansible.builtin.shell: ". /home/ubuntu/venv/bin/activate"
+    - name: Install requirements kuberspray
+      ansible.builtin.pip:
+        requirements: /home/ubuntu/kuberspray/requirements.txt
+        virtualenv: /home/ubuntu/venv/
+
+    - name: Copy inventory file to master host
+      copy:
+        src: /infrastructure/inventory.yml
+        dest: /home/ubuntu/inventory.yml
+
+    - name: Execute Install kuberspray
+      ansible.builtin.shell: "ansible-playbook -i /home/ubuntu/inventory.yml /home/ubuntu/kuberspray/cluster.yml -b -v"
+
+    - name: Configuration k8s Create dir
+      ansible.builtin.shell: "mkdir -p /home/ubuntu/.kube"
+    - name: Configuration k8s Copy config
+      ansible.builtin.shell: "sudo cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config"
+    - name: Configuration k8s Access rights
+      ansible.builtin.shell: "sudo chown $(id -u):$(id -g) /home/ubuntu/.kube/config"
