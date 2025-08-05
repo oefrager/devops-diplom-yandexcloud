@@ -91,20 +91,10 @@
 <summary> Подготовка тестового приложения: </summary>
 <br>
  
-   Для перехода к следующему этапу необходимо подготовить тестовое приложение, эмулирующее основное приложение разрабатываемое вашей компанией.
-  
-  Способ подготовки:
-  
-  1. Рекомендуемый вариант:  
-     а. Создайте отдельный git репозиторий с простым nginx конфигом, который будет отдавать статические данные.  
-     б. Подготовьте Dockerfile для создания образа приложения.  
-  2. Альтернативный вариант:  
-     а. Используйте любой другой код, главное, чтобы был самостоятельно создан Dockerfile.
-  
-  Ожидаемый результат:
-  
-  1. Git репозиторий с тестовым приложением и Dockerfile.
-  2. Регистри с собранным docker image. В качестве регистри может быть DockerHub или [Yandex Container Registry](https://cloud.yandex.ru/services/container-registry), созданный также с помощью terraform.
+ 1. Создаем отдельный [git репозиторий]() с простым nginx конфигом, который будет отдавать статические данные. Подготовим Dockerfile для создания образа приложения.
+ 2. Заливаем обра с собранным docker image в регистри на [DockerHub](https://hub.docker.com/repository/docker/oefrager/nginx-app/general),
+
+<img width="971" height="487" alt="изображение" src="https://github.com/user-attachments/assets/07543f95-3308-49a5-9d26-ee15b6fcd2f7" />
 
 </details>
 
@@ -118,11 +108,12 @@
 <summary> Настройка мониторинга kubernetes кластера: </summary>
 <br>
  
- Устанавливаем на кластере систему [мониторинга](kubernetes/prometheus.tf) при помощи пакета [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus).
- Доступ к развернутым в кластере приложениям мониторинга организуем через NodePort:
+ 1. Устанавливаем на кластере [систему мониторинга](kubernetes/prometheus.tf) при помощи пакета [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus).
+    Доступ к развернутым в кластере приложениям мониторинга организуем через NodePort:
  
- <img width="774" height="55" alt="изображение" src="https://github.com/user-attachments/assets/605c2dbe-1d5b-49f6-97d5-ba9e6c5600de" />
- Настраиваем [load-balanser](kubernetes/load-balancer.tf) для доступа к мониторингу извне.
+   <img width="774" height="55" alt="изображение" src="https://github.com/user-attachments/assets/605c2dbe-1d5b-49f6-97d5-ba9e6c5600de" />
+ 
+   Настраиваем [load-balanser](kubernetes/load-balancer.tf) для доступа к мониторингу извне.
 
  
   2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.
