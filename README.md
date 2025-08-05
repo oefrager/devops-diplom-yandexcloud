@@ -91,7 +91,7 @@
 <summary> Подготовка тестового приложения: </summary>
 <br>
  
- 1. Создаем отдельный [git репозиторий]() с простым nginx конфигом, который будет отдавать статические данные. Подготовим Dockerfile для создания образа приложения.
+ 1. Создаем отдельный [git репозиторий](https://github.com/oefrager/devops-diplom-app) с простым nginx конфигом, который будет отдавать статические данные. Подготовим Dockerfile для создания образа приложения.
  2. Заливаем обра с собранным docker image в регистри на [DockerHub](https://hub.docker.com/repository/docker/oefrager/nginx-app/general),
 
 <img width="971" height="487" alt="изображение" src="https://github.com/user-attachments/assets/07543f95-3308-49a5-9d26-ee15b6fcd2f7" />
