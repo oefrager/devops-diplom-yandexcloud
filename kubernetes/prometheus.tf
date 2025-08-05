@@ -5,7 +5,7 @@ resource "null_resource" "deploy_grafana" {
   
   provisioner "remote-exec" {
     inline = [
-      # Установка Helm
+      # Helm Install
       "curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash",
     
       #Клонируем  kube-prometheus репозиторий
