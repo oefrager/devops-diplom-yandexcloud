@@ -108,10 +108,12 @@
 <summary> Настройка мониторинга kubernetes кластера: </summary>
 <br>
  
- 1. Устанавливаем на кластере [систему мониторинга](kubernetes/prometheus.tf) при помощи пакета [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus).
+ 1. Устанавливаем на кластере систему мониторинга, для этого описываем операции в [коде](kubernetes/prometheus.tf)  Воспользуемся пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) с полным набором инструментов, позволяющих
+реализовать мониторинг кластера.
     Доступ к развернутым в кластере приложениям мониторинга организуем через NodePort:
  
    <img width="774" height="55" alt="изображение" src="https://github.com/user-attachments/assets/605c2dbe-1d5b-49f6-97d5-ba9e6c5600de" />
+ 
  
    Настраиваем [load-balanser](kubernetes/load-balancer.tf) для доступа к мониторингу извне.
 
@@ -121,10 +123,7 @@
   Способ выполнения:
 
 
-
-
-  
-  ### Деплой инфраструктуры в terraform pipeline
+ ### Деплой инфраструктуры в terraform pipeline
   
   1. Если на первом этапе вы не воспользовались [Terraform Cloud](https://app.terraform.io/), то задеплойте и настройте в кластере [atlantis](https://www.runatlantis.io/) для отслеживания изменений инфраструктуры. Альтернативный вариант 3 задания: вместо Terraform Cloud или atlantis настройте на автоматический запуск и применение конфигурации terraform из вашего git-репозитория в выбранной вами CI-CD системе при любом комите в main ветку. Предоставьте скриншоты работы пайплайна из CI/CD системы.
   
