@@ -97,15 +97,11 @@
 ### Подготовка cистемы мониторинга и деплой приложения
 Настройка мониторинга kubernetes кластера:
  
- 1. Устанавливаем на кластере систему мониторинга, для этого описываем операции в [коде](kubernetes/prometheus.tf)  Воспользуемся пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) с полным набором инструментов, позволяющих
-реализовать мониторинг кластера.
-    Доступ к развернутым в кластере приложениям мониторинга организуем через NodePort:
+ 1. Устанавливаем на кластере систему мониторинга, для этого описываем операции в [коде](kubernetes/prometheus.tf). Для этого воспользуемся пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) с полным набором инструментов, позволяющих реализовать мониторинг кластера kubernetes.
+    Доступ к развернутым в кластере приложениям мониторинга организуем через NodePort и настраиваем [load-balanser](kubernetes/load-balancer.tf) для доступа к мониторингу извне.
  
    <img width="774" height="55" alt="изображение" src="https://github.com/user-attachments/assets/605c2dbe-1d5b-49f6-97d5-ba9e6c5600de" />
  
- 
-   Настраиваем [load-balanser](kubernetes/load-balancer.tf) для доступа к мониторингу извне.
-
  
   2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.
   
