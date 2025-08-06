@@ -100,10 +100,12 @@
  1. Устанавливаем на кластере систему мониторинга, для этого описываем операции в [коде](kubernetes/prometheus.tf). Для этого воспользуемся пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) с полным набором инструментов, позволяющих реализовать мониторинг кластера kubernetes.
     Доступ к развернутым в кластере приложениям мониторинга организуем через NodePort и настраиваем [load-balanser](kubernetes/load-balancer.tf) для доступа к мониторингу извне.
  
-   <img width="774" height="55" alt="изображение" src="https://github.com/user-attachments/assets/605c2dbe-1d5b-49f6-97d5-ba9e6c5600de" />
+ <img width="764" height="101" alt="изображение" src="https://github.com/user-attachments/assets/c4e2ee07-7831-45fd-985b-b4a5d1eb45c4" />
  
  Доступ к web-интерфейсу grafana: ```admin / Pa$$w0rd```.
- 
+
+ <img width="1881" height="943" alt="изображение" src="https://github.com/user-attachments/assets/abfa96e6-51ed-4597-bea6-6f29b44ee087" />
+
   2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.
   
   Способ выполнения:
