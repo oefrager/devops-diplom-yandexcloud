@@ -10,6 +10,7 @@
  
 ---
 
+
 ## Цели:
 
 1. Подготовить облачную инфраструктуру на базе облачного провайдера Яндекс.Облако.
@@ -27,9 +28,7 @@
 
 ### Создание облачной инфраструктуры
 
-<details>
-<summary> Подготовка облачной инфраструктуры при помощи Terraform: </summary>
-<br>
+Готовим облачную инфраструктуру при помощи Terraform:
    
   1. Создаем сервисный аккаунт и присваиваем прав для доступа к bucket.
   
@@ -54,19 +53,15 @@
 
 <img width="786" height="208" alt="изображение" src="https://github.com/user-attachments/assets/d5c13458-eafe-4464-8f4f-787b9cac06f7" />
 
-</details>
 
+---
 ---
 
 
 
 ### Создание Kubernetes кластера
 
-<details>
-<summary> Установка Kubernetes кластера при помощи Terraform: </summary>
-<br>
- 
- Разворачиваем самостоятельно Kubernetes кластер с помощью kubespray. Для этого:
+Разворачиваем самостоятельно Kubernetes кластер с помощью пакета kubespray. Для этого:
 1. При помощи Terraform настраиваем [виртуальных машины](kubernetes/hosts-vm.tf) в разных зонах доступности ru-central1-a, ru-central1-b, ru-central1-d.
 
 <img width="744" height="146" alt="изображение" src="https://github.com/user-attachments/assets/b4898184-ed28-48cf-9ab8-4a755af92148" />
@@ -79,34 +74,28 @@
 
 Получаем работоспособный кластер k8s из трех нод (количество нод может быть любым).
 
-</details>
 
+---
 ---
 
 
 
 ### Создание тестового приложения
 
-<details>
-<summary> Подготовка тестового приложения: </summary>
-<br>
+Для тестового приложения:
  
  1. Создаем отдельный [git репозиторий](https://github.com/oefrager/devops-diplom-app) с простым nginx конфигом, который будет отдавать статические данные. Подготовим Dockerfile для создания образа приложения.
- 2. Заливаем обра с собранным docker image в регистри на [DockerHub](https://hub.docker.com/repository/docker/oefrager/nginx-app/general),
+ 2. Заливаем образ с собранным docker image в регистри на [DockerHub](https://hub.docker.com/repository/docker/oefrager/nginx-app/general),
 
 <img width="971" height="487" alt="изображение" src="https://github.com/user-attachments/assets/07543f95-3308-49a5-9d26-ee15b6fcd2f7" />
 
-</details>
-
+---
 ---
 
 
 
 ### Подготовка cистемы мониторинга и деплой приложения
-
-<details>
-<summary> Настройка мониторинга kubernetes кластера: </summary>
-<br>
+Настройка мониторинга kubernetes кластера:
  
  1. Устанавливаем на кластере систему мониторинга, для этого описываем операции в [коде](kubernetes/prometheus.tf)  Воспользуемся пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) с полным набором инструментов, позволяющих
 реализовать мониторинг кластера.
@@ -134,8 +123,7 @@
   4. Http доступ на 80 порту к тестовому приложению.
   5. Atlantis или terraform cloud или ci/cd-terraform
 
-</details>
-
+---
 ---
 
 
