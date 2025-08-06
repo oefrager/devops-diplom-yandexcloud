@@ -6,12 +6,12 @@ resource "local_file" "ansible_inventory_k8s" {
   filename = "./infrastructure/inventory.yml"
 }
 
-resource "local_file" "ansible_inventory_master" {
-  content = templatefile("./infrastructure/hosts.tftpl", {
-    master_internal_ip = yandex_compute_instance.k8s-node[0].network_interface[0].ip_address
-  })
-  filename = "./infrastructure/inventory/hosts.yml"
-}
+#resource "local_file" "ansible_inventory_master" {
+#  content = templatefile("./infrastructure/hosts.tftpl", {
+#    master_internal_ip = yandex_compute_instance.k8s-node[0].network_interface[0].ip_address
+#  })
+#  filename = "./infrastructure/hosts.yml"
+#}
 
 resource "null_resource" "deploy_k8s" {
   depends_on = [

@@ -5,3 +5,9 @@ output "k8s_nodes" {
     name        = i.name
   }]
 }
+
+output "load_balanser" {
+  value = {
+    ip_external =yandex_lb_network_load_balancer.load-balancer.listener[*].external_address_spec[*].address
+  }
+}
