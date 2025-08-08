@@ -106,14 +106,16 @@
  Снаружи:
  <img width="940" height="346" alt="изображение" src="https://github.com/user-attachments/assets/b19f7ea1-50b1-47b3-9123-a76638e20784" />
 
- Доступ к web-интерфейсу grafana: ```admin / Pa$$w0rd```.
-
  <img width="1881" height="943" alt="изображение" src="https://github.com/user-attachments/assets/abfa96e6-51ed-4597-bea6-6f29b44ee087" />
 
   2. Задеплоим тестовое приложение [код](kubernetes/infrastructure/deploy.yaml) и получим доступ по http:
  
  <img width="1031" height="935" alt="изображение" src="https://github.com/user-attachments/assets/4c9bd382-bf85-4941-a322-c02f83e7b9eb" />
 
+ [WEB приложения](http://51.250.91.180:30080/)
+ [WEb grafana](http://51.250.45.106/)
+
+ Доступ к web-интерфейсу grafana: ```admin / Pa$$w0rd```.
 
 ---
 ---
