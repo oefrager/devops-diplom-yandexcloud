@@ -62,7 +62,7 @@
 ### Создание Kubernetes кластера
 
 Разворачиваем самостоятельно Kubernetes кластер с помощью пакета kubespray. Для этого:
-1. При помощи Terraform настраиваем [виртуальных машины](kubernetes/hosts-vm.tf) в разных зонах доступности ru-central1-a, ru-central1-b, ru-central1-d.
+1. При помощи Terraform настраиваем [виртуальные машины](kubernetes/hosts-vm.tf) в разных зонах доступности ru-central1-a, ru-central1-b, ru-central1-d.
 
 <img width="744" height="146" alt="изображение" src="https://github.com/user-attachments/assets/b4898184-ed28-48cf-9ab8-4a755af92148" />
    
@@ -98,51 +98,41 @@
 Настройка мониторинга kubernetes кластера:
  
  1. Устанавливаем на кластере систему мониторинга, для этого описываем операции в [коде](kubernetes/prometheus.tf). Для этого воспользуемся пакетом [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus) с полным набором инструментов, позволяющих реализовать мониторинг кластера kubernetes.
-    Доступ к развернутым в кластере приложениям мониторинга организуем через NodePort и настраиваем [load-balanser](kubernetes/load-balancer.tf) для доступа к мониторингу извне.
+    Доступ извне к развернутым в кластере приложениям мониторинга организуем через [load-balanser](kubernetes/load-balancer.tf).
  
+ Внутри:
  <img width="764" height="101" alt="изображение" src="https://github.com/user-attachments/assets/c4e2ee07-7831-45fd-985b-b4a5d1eb45c4" />
- 
+
+ Снаружи:
+ <img width="940" height="346" alt="изображение" src="https://github.com/user-attachments/assets/b19f7ea1-50b1-47b3-9123-a76638e20784" />
+
  Доступ к web-интерфейсу grafana: ```admin / Pa$$w0rd```.
 
  <img width="1881" height="943" alt="изображение" src="https://github.com/user-attachments/assets/abfa96e6-51ed-4597-bea6-6f29b44ee087" />
 
-  2. Задеплоить тестовое приложение, например, [nginx](https://www.nginx.com/) сервер отдающий статическую страницу.
-  
-  Способ выполнения:
+  2. Задеплоим тестовое приложение [код](kubernetes/infrastructure/deploy.yaml) и получим доступ по http:
+ 
+ <img width="1031" height="935" alt="изображение" src="https://github.com/user-attachments/assets/4c9bd382-bf85-4941-a322-c02f83e7b9eb" />
 
-
- ### Деплой инфраструктуры в terraform pipeline
-  
-  1. Если на первом этапе вы не воспользовались [Terraform Cloud](https://app.terraform.io/), то задеплойте и настройте в кластере [atlantis](https://www.runatlantis.io/) для отслеживания изменений инфраструктуры. Альтернативный вариант 3 задания: вместо Terraform Cloud или atlantis настройте на автоматический запуск и применение конфигурации terraform из вашего git-репозитория в выбранной вами CI-CD системе при любом комите в main ветку. Предоставьте скриншоты работы пайплайна из CI/CD системы.
-  
-  Ожидаемый результат:
-  1. Git репозиторий с конфигурационными файлами для настройки Kubernetes.
-  2. Http доступ на 80 порту к web интерфейсу grafana.
-  3. Дашборды в grafana отображающие состояние Kubernetes кластера.
-  4. Http доступ на 80 порту к тестовому приложению.
-  5. Atlantis или terraform cloud или ci/cd-terraform
 
 ---
 ---
-
 
 
 ### Установка и настройка CI/CD
    
-  Осталось настроить ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода.
-  
-  Цель:
-  
-  1. Автоматическая сборка docker образа при коммите в репозиторий с тестовым приложением.
+   1. Автоматическая сборка docker образа при коммите в репозиторий с тестовым приложением.
+      
+Настраиваем ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода. В качестве ci/cd использовал Github Actions. Для этого генерируем в Dockerhub секретный токен и прописываем его в Actions.
+
+  <img width="967" height="97" alt="изображение" src="https://github.com/user-attachments/assets/31363e74-f8bf-4c66-b6a8-1c3b3b69f785" />
+
+Cоздаем [YAML-файл](https://github.com/oefrager/devops-diplom-app/blob/main/.github/workflows/build.yml), который при каждом пуше в ветку main автоматически собрает проект и выкладывает на сервер.
+
+  <img width="970" height="585" alt="изображение" src="https://github.com/user-attachments/assets/99275240-fda6-4879-a000-78b8023ff6e5" />
+-
+
   2. Автоматический деплой нового docker образа.
-  
-  Можно использовать [teamcity](https://www.jetbrains.com/ru-ru/teamcity/), [jenkins](https://www.jenkins.io/), [GitLab CI](https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/) или GitHub Actions.
-  
-  Ожидаемый результат:
-  
-  1. Интерфейс ci/cd сервиса доступен по http.
-  2. При любом коммите в репозиторие с тестовым приложением происходит сборка и отправка в регистр Docker образа.
-  3. При создании тега (например, v1.0.0) происходит сборка и отправка с соответствующим label в регистри, а также деплой соответствующего Docker образа в кластер Kubernetes.
 
 
 ---
