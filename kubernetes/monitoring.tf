@@ -4,7 +4,7 @@ resource "yandex_lb_network_load_balancer" "load-balancer" {
   listener {
     name = "load-balancer-chek"
     port = 80
-    target_port = 31089 ###
+    target_port = 31842 ###
     external_address_spec {
       ip_version = "ipv4"
     }
@@ -14,7 +14,7 @@ resource "yandex_lb_network_load_balancer" "load-balancer" {
     healthcheck {
       name = "http"
       http_options {
-        port = 31089 ###
+        port = 31842 ###
         path = "/api/health"
       }
     }
@@ -43,8 +43,8 @@ resource "null_resource" "deploy_grafana" {
       # Accessing Prometheus UI and Grafana dashboard using LoadBalancer
       "kubectl --namespace monitoring patch svc prometheus-k8s -p '{\"spec\": {\"type\": \"LoadBalancer\"}}'",
       "kubectl --namespace monitoring patch svc alertmanager-main -p '{\"spec\": {\"type\": \"LoadBalancer\"}}'",
-      #"kubectl --namespace monitoring patch svc grafana -p '{\"spec\": {\"type\": \"LoadBalancer\"}}'",
-      "kubectl --namespace monitoring patch svc grafana -p '{\"spec\": {\"ports\": [{\"nodePort\": 31000, \"port\":80 , \"targetPort\":3000, \"name\":\"http\"}], \"type\":\"LoadBalancer\"}}",
+      "kubectl --namespace monitoring patch svc grafana -p '{\"spec\": {\"type\": \"LoadBalancer\"}}'",
+      #"kubectl --namespace monitoring patch svc grafana -p '{\"spec\": {\"ports\": [{\"LoadBalancer\": 31000, \"port\":80 , \"targetPort\":3000, \"name\":\"http\"}], \"type\":\"LoadBalancer\"}}",
     ]
     connection {
       type        = "ssh"

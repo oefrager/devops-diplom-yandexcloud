@@ -9,6 +9,11 @@ variable "folder_id" {
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
 }
 
+variable "token_gitlab_id" {
+  type        = string
+  description = "https://cloud.yandex.ru/docs/resource-manager/operations/token/get-id"
+}
+
 variable "vpc_name_develop" {
   type        = string
   default     = "develop"

@@ -1,4 +1,3 @@
-
 resource "null_resource" "deploy_nginx" {
   depends_on = [
     null_resource.deploy_k8s,
@@ -21,12 +20,6 @@ resource "null_resource" "deploy_nginx" {
     inline = [
       "kubectl apply -f /home/ubuntu/deploy.yaml",
 
-      # Gitlab Install
-      "curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh | sudo bash",
-      "sudo apt -y install gitlab-runner",
-      "gitlab-runner register --non-interactive --url https://gitlab.com  --token ${local.gitlab-token} --executor shell --name k8s-runer",
-
-  #    "kubectl --namespace monitoring patch svc grafana -p '{\"spec\": {\"type\": \"NodePort\"}}'"
     ]
     connection {
       type        = "ssh"
